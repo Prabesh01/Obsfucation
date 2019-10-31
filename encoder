@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+	<div id = "main">
+	  <div id="midcontainer">
+		<textarea id="inputter">Enter an HTML code to make it obsfucated ,use the generated output inside a &lt;script&gt; tag and run it in browser . To check you can generate the output of &lt;h1>Checking</h1&gt; in your browser console and your browser will write "Checking" onto the screen.PS: erase it all and feed it with your input . 
+		</textarea>	
+		<button id ="convert" onclick="obsfucate()"> Obsfucate me </button>
+		<textarea id="output" readonly></textarea>
+	</div>
+  </div>
+	</body>
+	<script>
+	
+
+var code = ".replace(/.{7}/g,function(w){document.write(String.fromCharCode(parseInt((w.replace(/ /g,'0').replace(/	/g,'1')),2)))})";
+
+
+function obsfucate(){
+	var output = idgrab('output');
+	var inputter = idgrab('inputter');
+	//checks for a new line character 
+    inputter = inputter.value.replace(/(\r\n|\r|\n|\n\r)/g, ' ');  
+    inputter = inputter.split('').map(function(w){return lengthchecker(w)}).join('');
+    //&nbsp and &#9 are used to prevent browsers from removing whitespaces.
+    inputter = inputter.replace(/0/g,"&nbsp;").replace(/1/g,"&#9;");
+    output.innerHTML = "'" + inputter + "'" + code;
+
+}
+
+function idgrab(id){
+	return document.getElementById(id);
+}
+
+function lengthchecker(input){
+	 var rvalue = input.charCodeAt(0).toString(2);
+	 //The binary number thus obtained may be less than 7bits. So , to make it  7bits we prepend total no. of zeros required .
+	 var rvalue =  Array(7-rvalue.length).fill('0').join('').concat(rvalue);
+	 return rvalue;
+}
+
+
+	</script>
+</html>
