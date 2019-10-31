@@ -1,0 +1,19 @@
+<style>
+textarea{
+	width:100%;
+}
+</style>
+
+<center>
+<textarea id="encoded" rows=18></textarea>
+<button type="submit" onclick="decode()">Decode</button>
+<textarea id="decoded" rows=18></textarea>
+</center>
+
+<script>
+function decode(){
+	var encoded = document.getElementById("encoded");
+	var decoded = document.getElementById("decoded");
+	decoded.innerHTML = encoded.value.replace(/.{7}/g,function(w){return String.fromCharCode(parseInt((w.replace(/ /g,'0').replace(/	/g,'1')),2))})
+}
+</script>
